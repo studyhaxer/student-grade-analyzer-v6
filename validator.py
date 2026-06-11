@@ -1,8 +1,9 @@
 def validate_name(name):
-    if not name.strip():
+    name = name.strip()
+    if not name:
         raise ValueError("Name cannot be empty.")
     elif len(name) < 2:
-        raise ValueError("Name must contain atleast two Chracters. ")
+       raise ValueError("Name must contain at least two characters.")
 def validate_marks(marks):
     if not isinstance(marks, (int, float)):
         raise TypeError("Marks must be numeric.")

@@ -18,7 +18,10 @@ def main():
         print("10. Update Students")
         print("11. Sort Students by Name")
         print("12. Highest and Lowest Averages")
-        print("13. Save and Exit")
+        print("13. Export Students to CSV")
+        print("14. Import Students from CSV")
+        print("15. Generate Report")
+        print("16. Save and Exit")
         choice = utils.get_menu_choice()
         if choice == '1':
             utils.add_students(students)
@@ -45,7 +48,13 @@ def main():
         elif choice == '12':
             utils.highest_lowest(students)
         elif choice == '13':
-            file_handler.save_students(students)
+            file_handler.csv_write_dict(students)
+        elif choice == '14':
+            file_handler.csv_reader_dict(students)
+        elif choice == '15':
+            utils.generate_report(students)
+        elif choice == '16':
+            file_handler.save_students(students)        
             print("Exiting the program.")
             break
         else:

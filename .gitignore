@@ -1,16 +1,23 @@
-# Python cache files
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
-# Student data file
+# Generated output files
 students.json
+students.csv
+reports/
 
-# VS Code settings (optional)
-.vscode/
-
-# Environment files (future projects)
-.env
-
-# Virtual environments (future projects)
+# Virtual environment (if you use one later)
 venv/
-.venv/
+.env/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store        # Mac
+Thumbs.db        # Windows

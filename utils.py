@@ -5,13 +5,15 @@ from validator import (
     validate_marks
 )
 from student import Student
+from datetime import datetime
+from pathlib import Path
 def get_menu_choice():
     while True:
         try:
             choice = input("Enter your choice: ").strip()
-            if choice.isdigit() and 1 <= int(choice) <= 13:
+            if choice.isdigit() and 1 <= int(choice) <= 16:
                 return choice
-            print("Invalid choice. Please enter a number between 1 and 13.")
+            print("Invalid choice. Please enter a number between 1 and 16.")
         except ValueError as e:
             print(e)
 def add_students(students):
@@ -120,3 +122,35 @@ def highest_lowest(students):
     highest_student.display()
     print("Lowest Average:")
     lowest_student.display()
+def generate_report(students):
+    try:
+        if not students:
+            print("No students available.")
+            return
+        folder_path = Path("reports")
+        folder_path.mkdir(parents=True, exist_ok=True)
+        time = datetime.now()
+        formatted = time.strftime("%Y_%m_%d_%H_%M_%S")
+        filename = folder_path / f"report_{formatted}.txt"
+        total_students_count = len(students)
+        total_class_average = sum(student.average() for student in students) / len(students)
+        topper_student =  max(students, key=lambda s: s.average())
+        lowest_student = min(students, key=lambda s: s.average())
+        with open(filename, "w") as file:
+            file.write("Student Performance Report \n")
+            file.write("========================== \n \n")
+            file.write(f"Total Students :  {total_students_count} \n")
+            file.write(f"Class Average :  {total_class_average:.2f} \n\n")
+            file.write(f"Top Student :  {topper_student.name} \n")
+            file.write(f"Top Average :  {topper_student.average():.2f} \n")
+            file.write(f"Lowest Student :  {lowest_student.name} \n")
+            file.write(f"Lowest Average :  {lowest_student.average():.2f} \n")
+            file.write("\n\nStudent Details\n")
+            file.write("----------------\n")
+            for student in students:
+                file.write(str(student) + "\n")
+            file.write(f"Generated On : {formatted}")
+        print(f"Report generated successfully: {filename}")
+            
+    except Exception as e:
+        logging.error(f'Error generating report: {e}')
